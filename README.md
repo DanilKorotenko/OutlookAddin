@@ -24,3 +24,12 @@ The message is sent.
 Expected result
 ---------------
 The message should always be blocked to send.
+
+Hardware Info
+-------------
+MacBook Air M1, 2020
+
+Software Info
+-------------
+macOS 13.2.1
+Outlook 16.73
