@@ -38,3 +38,6 @@ Outlook 16.73
 Screenshots
 -----------
 ![](/Screenshot3.png)
+![](/Screenshot1.png)
+![](/Screenshot2.png)
+![](/Screenshot4.png)
