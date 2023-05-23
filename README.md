@@ -29,6 +29,8 @@ Additional info
 ---------------
 This issue is absent in Outlook On the Web (https://outlook.com)
 
+this issue is absent in Outlook for Windows version: 2108 (build 14332.20447)
+
 Hardware
 --------
 MacBook Air M1, 2020
