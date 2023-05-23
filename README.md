@@ -25,12 +25,16 @@ Expected result
 ---------------
 The message should always be blocked to send.
 
-Hardware Info
--------------
+Additional info
+---------------
+This issue is absent in Outlook On the Web (https://outlook.com)
+
+Hardware
+--------
 MacBook Air M1, 2020
 
-Software Info
--------------
+Software
+--------
 macOS 13.2.1
 
 Outlook 16.73
