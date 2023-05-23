@@ -32,4 +32,5 @@ MacBook Air M1, 2020
 Software Info
 -------------
 macOS 13.2.1
+
 Outlook 16.73
