@@ -12,10 +12,10 @@ Steps To Reproduce
 ------------------
 1. Install manifest: [Manifest](/manifest.xml)
 2. Create a new mail message, with "To:", "Subject:" and some content.
-3. Press "Send" button.
-4. The "Send" button become disabled for a moment.
-5. A separate message window appear with "Message blocked." notification.
-6. Click "Send" a few times.
+3. Press the "Send" button.
+4. The "Send" button becomes disabled for a moment.
+5. A separate message window appears with the "Message blocked." notification.
+6. Click the "Send" button again several times.
 
 Actual Result
 -------------
