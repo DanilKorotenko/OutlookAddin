@@ -34,3 +34,7 @@ Software Info
 macOS 13.2.1
 
 Outlook 16.73
+
+Screenshots
+-----------
+![](/Screenshot3.png)
