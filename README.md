@@ -39,7 +39,7 @@ Software
 --------
 macOS 13.2.1
 
-Outlook 16.73
+Outlook for Mac 16.73
 
 Screenshots
 -----------
