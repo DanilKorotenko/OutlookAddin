@@ -1,3 +1,7 @@
+Note
+----
+This repository is for history. For now, the issue described here is not reproducible.
+
 Prerequisites
 -------------
 Addin code is hosted on: https://danilkorotenko.github.io/OutlookAddin/index.html
