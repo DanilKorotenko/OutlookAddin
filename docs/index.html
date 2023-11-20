@@ -4,9 +4,86 @@
     <title>No UI</title>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
-<!--    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.debug.js"></script>-->
 
     <script>
+
+const SERVICE_URL = "https://localhost:250";
+const API_V1_OUTLOOK_SUBJECT = "/api/v1/outlook/subject";
+
+async function sendPostRequest(apiCall, data)
+{
+    return new Promise((resolve, reject) =>
+        {
+            let url = SERVICE_URL + apiCall;
+            console.log("sendPostRequest with fetch: " + url);
+            fetch(url,
+            {
+                method: "POST",
+                body: data,
+                mode: 'cors',
+                headers:
+                {
+                    Accept: "application/json",
+                    "Content-type": "application/json; charset=utf-8",
+                },
+            })
+            .then(result =>
+            {
+                if (result.status !== 200)
+                {
+                    reject(new Error("Agent error"));
+                }
+                else
+                {
+                    result.text()
+                        .then(text =>
+                        {
+                            if (text)
+                            {
+                                resolve(text);
+                            }
+                            else
+                            {
+                                console.log("fetch empty response");
+                                reject(new Error("Agent error"));
+                            }
+                        })
+                        .catch(error =>
+                        {
+                            console.log("fetch text error");
+                            reject(error);
+                        });
+                }
+            })
+            .catch(error =>
+            {
+                console.log("fetch error: " + JSON.stringify(error));
+                reject(error);
+            });
+        });
+}
+
+async function obtainItemProperty(mailboxItem, itemProperty)
+{
+    console.log("obtain " + itemProperty);
+    return new Promise((resolve, reject) =>
+        {
+            mailboxItem[itemProperty].getAsync(
+                function(asyncResult)
+                {
+                    if (asyncResult.status === Office.AsyncResultStatus.Succeeded)
+                    {
+                        console.log("obtained " + itemProperty);
+                        resolve(asyncResult.value);
+                    }
+                    else
+                    {
+                        console.log("rejected " + itemProperty);
+                        reject(asyncResult.error);
+                    }
+                });
+        });
+}
 
 let mailboxItem;
 
@@ -21,9 +98,42 @@ function validateMessage(event)
 {
     console.log("Start validation stream");
 
+    obtainItemProperty(mailboxItem, "subject")
+        .then(
+            subject => 
+            {
+                return sendPostRequest(API_V1_OUTLOOK_SUBJECT, subject);
+            }, 
+            error => 
+            {
+                console.log("Error on obtaining subject: " + error);
+                mailboxItem.notificationMessages.addAsync('NoSend',
+                    { type: 'errorMessage',
+                    message: 'Message blocked.' });
+                event.completed({ allowEvent: false });
+            })
+        .then(
+            agentReponse => 
+            {
+                console.log("agent reponse: " + agentReponse);
+                mailboxItem.notificationMessages.addAsync('NoSend',
+                    { type: 'errorMessage',
+                    message: 'Message blocked.' });
+                event.completed({ allowEvent: false });
+            },
+            error => 
+            {
+                console.log("Error on sending subject to agent: " + error);
+                mailboxItem.notificationMessages.addAsync('NoSend',
+                    { type: 'errorMessage',
+                    message: 'Message blocked.' });
+                event.completed({ allowEvent: false });
+            })
+
+
     mailboxItem.notificationMessages.addAsync('NoSend',
-            { type: 'errorMessage',
-            message: 'Message blocked.' });
+        { type: 'errorMessage',
+        message: 'Message blocked.' });
             
     event.completed({ allowEvent: false });
     return;
